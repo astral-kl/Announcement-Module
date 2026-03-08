@@ -1,1 +1,315 @@
+App.tsx (Main Component)
+import { Header } from "./components/Header";
+import { Hero } from "./components/Hero";
+import { SearchBar } from "./components/SearchBar";
+import { AnnouncementCard } from "./components/AnnouncementCard";
+import { NotificationBanner } from "./components/NotificationBanner";
 
+export default function App() {
+  const announcements = [
+    {
+      id: 1,
+      title: "USG Financial Report",
+      description: "Here's a quick summary of The Usg Tinig: Dinig Project Website Financial Report",
+      publishedBy: "Admin 101",
+      uploadedTime: "1 hour Ago"
+    },
+    {
+      id: 2,
+      title: "USG Financial Report",
+      description: "Here's a quick summary of The Usg Tinig: Dinig Project Website Financial Report",
+      publishedBy: "Admin Z",
+      uploadedTime: "5 hours Ago"
+    },
+    {
+      id: 3,
+      title: "USG Financial Report",
+      description: "Here's a quick summary of The Usg Tinig: Dinig Project Website Financial Report",
+      publishedBy: "Admin K",
+      uploadedTime: "7 hours Ago"
+    },
+    {
+      id: 4,
+      title: "USG Financial Report",
+      description: "Here's a quick summary of The Usg Tinig: Dinig Project Website Financial Report",
+      publishedBy: "Admin Xy",
+      uploadedTime: "10 hours Ago"
+    }
+  ];
+
+  return (
+    <div className="min-h-screen bg-gray-50">
+      <Header />
+      <main>
+        <Hero />
+        <SearchBar />
+        
+        {/* Announcements Grid */}
+        <section className="container mx-auto px-4 py-8 md:py-12">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {announcements.map((announcement) => (
+              <AnnouncementCard
+                key={announcement.id}
+                title={announcement.title}
+                description={announcement.description}
+                publishedBy={announcement.publishedBy}
+                uploadedTime={announcement.uploadedTime}
+              />
+            ))}
+          </div>
+        </section>
+
+        <NotificationBanner />
+      </main>
+
+      {/* Footer */}
+      <footer className="bg-white border-t py-8">
+        <div className="container mx-auto px-4 text-center text-sm text-gray-600">
+          <p>&copy; 2026 University Student Government - Tinig: Dinig Website</p>
+        </div>
+      </footer>
+    </div>
+  );
+}
+Header.tsx
+import { Home, Info, Menu } from "lucide-react";
+import { Button } from "./ui/button";
+import imgLogo from "figma:asset/96ce0017694ca395ad0ce6ef3d6f851ec1c4d386.png";
+
+export function Header() {
+  return (
+    <header className="sticky top-0 z-50 w-full border-b bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/80">
+      <div className="container mx-auto flex h-20 items-center justify-between px-4 md:px-6">
+        {/* Logo Section */}
+        <div className="flex items-center gap-3">
+          <img src={imgLogo} alt="USG Logo" className="h-14 w-14 object-contain" />
+          <div className="flex flex-col">
+            <h1 className="bg-gradient-to-r from-[#C8102E] to-[#8a0b20] bg-clip-text text-lg font-extrabold text-transparent md:text-xl">
+              University Student Government
+            </h1>
+            <p className="text-base font-bold text-black md:text-lg">
+              Tinig: Dinig Website
+            </p>
+          </div>
+        </div>
+
+        {/* Desktop Navigation */}
+        <nav className="hidden md:flex items-center gap-6">
+          <a
+            href="#"
+            className="flex items-center gap-2 text-lg font-extrabold text-black transition-colors hover:text-[#C8102E]"
+          >
+            <Home className="h-5 w-5" />
+            Home
+          </a>
+          <a
+            href="#"
+            className="flex items-center gap-2 text-lg font-extrabold text-black transition-colors hover:text-[#C8102E]"
+          >
+            <Info className="h-5 w-5" />
+            About Us
+          </a>
+          
+          <Button className="bg-[#C8102E] hover:bg-[#a00d25] rounded-lg px-5 py-2">
+            Sign In
+          </Button>
+          <Button className="bg-[#C8102E] hover:bg-[#a00d25] rounded-lg px-5 py-2">
+            Log In
+          </Button>
+        </nav>
+
+        {/* Mobile Menu Button */}
+        <Button variant="ghost" size="icon" className="md:hidden">
+          <Menu className="h-6 w-6" />
+        </Button>
+      </div>
+    </header>
+  );
+}
+Hero.tsx
+import { Megaphone } from "lucide-react";
+
+export function Hero() {
+  return (
+    <section className="bg-gradient-to-b from-gray-50 to-white py-12 md:py-16">
+      <div className="container mx-auto px-4 text-center">
+        <div className="flex items-center justify-center gap-3 mb-4">
+          <Megaphone className="h-12 w-12 md:h-14 md:w-14 text-[#C8102E] fill-[#C8102E]" />
+          <h2 className="text-4xl md:text-6xl font-normal text-[#C8102E]">
+            Announcement
+          </h2>
+        </div>
+        <p className="text-lg md:text-xl text-[#373232] max-w-2xl mx-auto">
+          Stay informed with the latest news, updates and important information
+        </p>
+      </div>
+    </section>
+  );
+}
+SearchBar.tsx
+import { Search, SlidersHorizontal, ChevronDown, Upload } from "lucide-react";
+import { Button } from "./ui/button";
+
+export function SearchBar() {
+  return (
+    <section className="bg-white py-6 md:py-8 border-b">
+      <div className="container mx-auto px-4">
+        <div className="flex flex-col md:flex-row gap-4 items-center">
+          {/* Search Input */}
+          <div className="relative flex-1 w-full">
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-[#8e8e8e]" />
+            <input
+              type="text"
+              placeholder="Search for Contents, News, Updates..."
+              className="w-full h-14 pl-12 pr-4 rounded-full border border-gray-200 bg-white text-base placeholder:text-[#8e8e8e] focus:outline-none focus:ring-2 focus:ring-[#C8102E]/20"
+            />
+          </div>
+
+          {/* Filter Button */}
+          <Button
+            variant="outline"
+            className="hidden md:flex items-center gap-2 h-14 px-6 rounded-full"
+          >
+            <SlidersHorizontal className="h-5 w-5 text-[#8e8e8e]" />
+          </Button>
+
+          {/* Category Dropdown */}
+          <div className="hidden md:flex items-center gap-3 h-14 px-6 rounded-full border border-gray-200 bg-white cursor-pointer hover:bg-gray-50 transition-colors">
+            <span className="text-2xl text-[#8e8e8e]">All</span>
+            <ChevronDown className="h-5 w-5 text-[#c2c1c1]" />
+          </div>
+
+          {/* Upload Button */}
+          <Button className="bg-[#161616] hover:bg-black text-white rounded-full h-14 px-6 gap-2">
+            <Upload className="h-5 w-5" />
+            Upload
+          </Button>
+        </div>
+      </div>
+    </section>
+  );
+}
+AnnouncementCard.tsx
+import { FileText, ThumbsUp, ThumbsDown, MoreVertical } from "lucide-react";
+import { Button } from "./ui/button";
+
+interface AnnouncementCardProps {
+  title: string;
+  description: string;
+  publishedBy: string;
+  uploadedTime: string;
+  tags?: string[];
+}
+
+export function AnnouncementCard({
+  title,
+  description,
+  publishedBy,
+  uploadedTime,
+  tags = ["Hot", "New", "Trending"]
+}: AnnouncementCardProps) {
+  return (
+    <article className="bg-white rounded-lg p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+      {/* Header */}
+      <div className="flex items-start justify-between mb-4">
+        <h3 className="text-2xl md:text-3xl font-semibold text-black">
+          {title}
+        </h3>
+        <Button variant="ghost" size="icon" className="text-[#8e8e8e]">
+          <MoreVertical className="h-5 w-5" />
+        </Button>
+      </div>
+
+      {/* Document Info */}
+      <div className="flex items-center gap-3 mb-4">
+        <FileText className="h-8 w-8 text-black" />
+        <span className="text-lg md:text-xl text-black">
+          USG Financial Report.docx
+        </span>
+      </div>
+
+      {/* Description */}
+      <p className="text-base text-black mb-4 leading-relaxed">
+        {description}
+      </p>
+
+      {/* Tags */}
+      <div className="flex flex-wrap gap-2 mb-4">
+        {tags.map((tag) => (
+          <span
+            key={tag}
+            className="bg-[#C8102E] text-white text-sm px-3 py-1 rounded-md"
+          >
+            {tag}
+          </span>
+        ))}
+      </div>
+
+      {/* Footer */}
+      <div className="flex items-center justify-between pt-4 border-t border-gray-100">
+        {/* Meta Info */}
+        <div className="text-sm text-[#8e8e8e] italic">
+          <p>Published By: {publishedBy}</p>
+          <p>Uploaded: {uploadedTime}</p>
+        </div>
+
+        {/* Action Buttons */}
+        <div className="flex items-center gap-2">
+          <Button
+            variant="ghost"
+            size="icon"
+            className="text-[#8e8e8e] hover:text-[#C8102E] hover:bg-[#C8102E]/10"
+          >
+            <ThumbsUp className="h-5 w-5" />
+          </Button>
+          <Button
+            variant="ghost"
+            size="icon"
+            className="text-[#8e8e8e] hover:text-[#C8102E] hover:bg-[#C8102E]/10"
+          >
+            <ThumbsDown className="h-5 w-5" />
+          </Button>
+        </div>
+      </div>
+    </article>
+  );
+}
+NotificationBanner.tsx
+import { Bell } from "lucide-react";
+import { Button } from "./ui/button";
+
+export function NotificationBanner() {
+  return (
+    <section className="bg-gradient-to-r from-[#C8102E] to-[#a00d25] py-12 md:py-16 mt-12">
+      <div className="container mx-auto px-4 text-center">
+        <div className="flex items-center justify-center gap-3 mb-4">
+          <Bell className="h-10 w-10 md:h-12 md:w-12 text-white fill-white" />
+          <h2 className="text-3xl md:text-5xl font-normal text-white">
+            Notification
+          </h2>
+        </div>
+        <p className="text-lg md:text-xl text-white mb-6 max-w-2xl mx-auto">
+          Never Miss An Update From Us!!
+        </p>
+        <p className="text-base md:text-lg text-white/90 mb-8 max-w-3xl mx-auto leading-relaxed">
+          Follow Our Official Group Page To Stay Informed About The Future Important 
+          Announcements And Events. Stay Safe!!
+        </p>
+        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+          <Button
+            variant="secondary"
+            className="bg-black hover:bg-black/90 text-white rounded-full px-8 py-3 text-base"
+          >
+            Suggestions & Feedbacks
+          </Button>
+          <Button
+            variant="secondary"
+            className="bg-black hover:bg-black/90 text-white rounded-full px-8 py-3 text-base"
+          >
+            Privacy & Cookies
+          </Button>
+        </div>
+      </div>
+    </section>
+  );
+}
